@@ -185,7 +185,7 @@ jobs:
         shell: pwsh
         run: |
           # Load used functions
-          . (Join-Path $env:GITHUB_WORKSPACE 'utilities' 'pipelines' 'resourcePublish' 'Get-ChangedModules.ps1')
+          . (Join-Path $env:GITHUB_WORKSPACE 'utilities' 'pipelines' 'resourcePublish' 'Get-ModifiedModules.ps1')
 
           $functionInput = @{
             ModuleFilePath = '${{ env.modulePath }}/deploy.bicep'
@@ -194,8 +194,8 @@ jobs:
           Write-Output "Invoke task with"
           Write-Output ($functionInput | ConvertTo-Json | Out-String)
 
-          # Get the changed child resources
-          Get-ChangedModules @functionInput -Verbose
+          # Get the modified child resources
+          Get-ModifiedModules @functionInput -Verbose
 
 #      - name: 'Publish module'
 #        uses: ./.github/actions/templates/publishModule
